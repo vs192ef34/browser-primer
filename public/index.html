@@ -1,41 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Browser Primer</title>
-</head>
-<body>
-  <noscript>Turn JS on, pleeease</noscript>
-  <h1>Browser Primer</h1>
-  <div id="root">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Browser Primer</title>
+    <style>
+      .alert {
+        padding: 15px;
+        border: 1px solid #d6e9c6;
+        border-radius: 4px;
+        color: #3c763d;
+        background-color: #dff0d8;
+      }
+    </style>
+  </head>
+  <body id="body-id" myCoolAttribute="content!!!">
+    <noscript>Turn JS on, pleeease</noscript>
+    <h1>Browser Primer</h1>
+    <div id="root">
+      <ul id="topic-list">
+        <li>Window</li>
+        <ul>
+          <li>DOM - Document Object Model; DOM Tree</li>
+          <ul class="sub-list1">
+            <li>document</li>
+            <li>CSSOM - CSS Object Model</li>
+          </ul>
+          <li>BOM - Browser Object Model</li>
+          <ul class="sub-list2">
+            <li class="for-query">navigator</li>
+            <li class="for-query">screen</li>
+            <li class="for-query">location</li>
+            <li class="for-query">frames</li>
+            <li class="for-query">history</li>
+            <li class="for-query">XMLHttpReques</li>
+          </ul>
+          <li>JavaScript</li>
+          <ul class="sub-list3">
+            <li class="for-query">Object</li>
+            <li>Array</li>
+            <li class="function-sub-item">Function</li>
+            <li>...</li>
+          </ul>
+        </ul>
+      </ul>
+    </div>
     <ul>
-      <li>Window</li>
+      <li>EventTarget</li>
       <ul>
-        <li>DOM - Document Object Model; DOM Tree</li>
+        <li>Node</li>
         <ul>
-          <li>document</li>
-          <li>CSSOM - CSS Object Model</li>
-        </ul>
-        <li>BOM - Browser Object Model</li>
-        <ul>
-          <li>navigator</li>
-          <li>screen</li>
-          <li>location</li>
-          <li>frames</li>
-          <li>history</li>
-          <li>XMLHttpReques</li>
-        </ul>
-        <li>JavaScript</li>
-        <ul>
-          <li>Object</li>
-          <li>Array</li>
-          <li>Function</li>
-          <li>...</li>
+          <li>Text</li>
+          <li>Comment</li>
+          <li>Element</li>
+          <ul>
+            <li>SVGElement</li>
+            <li>HTMLElement</li>
+            <ul>
+              <li>HTMLInputElement</li>
+              <li>HTMLBodyElement</li>
+              <li>HTMLAnchorElement</li>
+            </ul>
+          </ul>
         </ul>
       </ul>
     </ul>
-  </div>
-  <script src="../src/index.js"></script>
-</body>
+    <script type="module">
+      import { buildPage, renderPage } from "../src/index.js";
+
+      buildPage();
+      // rebderPage();
+    </script>
+  </body>
 </html>
