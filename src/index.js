@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-console */
 
@@ -72,23 +73,140 @@ const browserTree = {
 
 // рекурсия
 
-const nodesHierarchy = {};
+const nodesHierarchy = {
+  label: "EventTarget",
+  children: [
+    {
+      label: "Node",
+      children: [
+        {
+          label: "Text",
+          children: [],
+        },
+        {
+          label: "Comment",
+          children: [],
+        },
+        {
+          label: "Element",
+          children: [
+            {
+              label: "SVGElement",
+              children: [],
+            },
+            {
+              label: "HTMLElement",
+              children: [
+                {
+                  label: "HTMLInputElement",
+                  children: [],
+                },
+                {
+                  label: "HTMLBodyElement",
+                  children: [],
+                },
+                {
+                  label: "HTMLAnchorElement",
+                  children: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
 
-function renderTree(tree) {
+const data = [
+  {
+    label: "data 001",
+    level: "001",
+    children: [],
+  },
+  {
+    label: "data 002",
+    level: "002",
+    children: [],
+  },
+  {
+    label: "data 003",
+    level: "003",
+    children: [],
+  },
+  {
+    label: "data 004",
+    level: "004",
+    children: [],
+  },
+];
+
+function createLiElement(text) {
+  const li = document.createElement("li");
+  li.innerHTML = text;
+  return li;
+}
+
+function renderTreeToList(treeArray) {
+  const list = document.createElement("ol");
+
+  treeArray
+    .map((node) => `${node.label} ${node.level}`)
+    .map((item) => createLiElement(item))
+    .forEach((liElement) => list.append(liElement));
+
+  return list;
+}
+
+function renderTree(treeArray) {
+  if (treeArray.length === 0) return null;
+
   const rootUlElement = document.createElement("ul");
 
-  // conver tree into elements
+  treeArray.forEach((node) => {
+    const liElement = document.createElement("li");
+    liElement.innerHTML = node.label;
+    rootUlElement.append(liElement);
+
+    const subTree = renderTree(node.children);
+    if (subTree !== null) rootUlElement.append(subTree);
+  });
 
   return rootUlElement;
 }
 
+const complexArray = [1, 2, 3, [4, 5, 6, [7, 8, 9], 10, [11, 12]]];
+
+function flattenArray(array) {
+  let result = [];
+  array.forEach((item) => {
+    if (Array.isArray(item)) {
+      result = [...result, ...flattenArray(item)];
+    } else {
+      result = [...result, item];
+    }
+  });
+
+  return result;
+}
+
+function renderArray(array) {
+  const p = document.createElement("p");
+  p.innerHTML = JSON.stringify(array);
+
+  return p;
+}
+
 export function renderPage() {
-  const browserTreeList = renderTree(browserTree);
-  const nodesHierarchyList = renderTree(nodesHierarchy);
+  const tree = renderTree([browserTree, nodesHierarchy]);
+  const list = renderTreeToList(data);
 
   const rootDiv = document.getElementById("root");
-  rootDiv.append(browserTreeList);
-  rootDiv.append(nodesHierarchyList);
+  if (tree !== null) rootDiv.append(tree);
+  if (list !== null) rootDiv.append(list);
+
+  const flatArray = flattenArray(complexArray);
+  rootDiv.append(renderArray(flatArray));
 }
 
 export function buildPage() {
@@ -157,4 +275,17 @@ export function buildPage() {
   rootDiv.append(clone);
 
   // rootDiv.remove();
+
+  const demo001 = document.getElementById("demo001");
+
+  console.log(demo001.classList);
+
+  demo001.classList.add("demo-cls");
+
+  demo001.style.position = "relative";
+
+  console.log(demo001.style.marginTop);
+
+  const computedStyle = getComputedStyle(demo001);
+  console.log(computedStyle);
 }
