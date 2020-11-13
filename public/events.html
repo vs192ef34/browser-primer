@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Browser Primer</title>
   </head>
-  <body onclick="alert('i am body')">
-    <script>
-      function clickHandler() {
-        alert("lksdjflkswjdlks");
-      }
-    </script>
+  <body>
     <noscript>Turn JS on, pleeease</noscript>
     <div id="log"></div>
     <div id="root">
@@ -20,7 +15,7 @@
       <p>Test test test</p>
     </div>
     Event bubbling and Event capture
-    <div id="area" onclick="alert('li');">
+    <div id="area">
       <ul>
         <li>fskjldjfslkjfklsj</li>
         <li>fskjldjfslkjfklsj</li>
@@ -31,32 +26,19 @@
         <li>fskjldjfslkjfklsj</li>
       </ul>
     </div>
+
+    Unobtrusive Javascript
+    <form method="get" id="user">
+      <input type="text" id="fn" value="First Name">
+      <input type="text" id="ln" value="Last Name">
+      <input type="checkbox" id="isAdult">
+    </form>
+
     <script type="module">
-      import { main } from "../src/events.js";
+      import { formsMain } from "../src/events.js";
 
-      const testObject = {
-        field: "Test object field",
-        method() {
-          event.stopPropagation();
-          alert(this.field);
-        },
-        method1(event) {
-          alert(`##### ${event.target.id} - ${this.field}`);
-        },
-      };
-
-      const handler = testObject.method.bind(testObject);
-      const handler1 = testObject.method1.bind(testObject);
-
-      const element = document.getElementById("btn");
-
-      element.addEventListener("click", handler);
-
-      const element1 = document.getElementById("root");
-
-      element1.addEventListener("click", handler1);
-
-      main();
+      //main(document);
+      formsMain(document);
     </script>
   </body>
 </html>
